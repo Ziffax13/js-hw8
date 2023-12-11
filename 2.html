@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Marker {
+            constructor(color, inkLevel) {
+                this.color = color; 
+                this.inkLevel = inkLevel; 
+            }
+
+            print(text) {
+                let printedText = '';
+                for (const char of text) {
+                    if (char !== ' ' && this.inkLevel > 0) {
+                        printedText += char; 
+                        this.inkLevel -= 0.5;
+                    } else if (char === ' ') {
+                        printedText += char; 
+                    }
+                }
+                console.log(`Printed text: ${printedText} (Color: ${this.color}, Ink Level: ${this.inkLevel}%)`);
+            }
+        }
+
+        class RefillableMarker extends Marker {
+            constructor(color, inkLevel, capacity) {
+                super(color, inkLevel);
+                this.capacity = capacity; 
+            }
+
+            refill(inkAmount) {
+                if (this.inkLevel + inkAmount <= this.capacity) {
+                    this.inkLevel += inkAmount;
+                    console.log(`Marker refilled. Ink level: ${this.inkLevel}%`);
+                } else {
+                    console.log(`Ink amount exceeds the marker's capacity. Max capacity: ${this.capacity}%`);
+                }
+            }
+        }
+
+    const marker = new Marker('Blue', 50);
+    marker.print('This is a test message'); 
+
+    const refillableMarker = new RefillableMarker('Red', 20, 100);
+    refillableMarker.print('Refillable marker test'); 
+    refillableMarker.refill(50); 
+    refillableMarker.print('After refill test'); 
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class ExtendedDate extends Date {
+            constructor(...args) {
+                super(...args);
+            }
+
+            getDateString() {
+                const months = [
+                    "Января", "Февраля", "Марта", "Апреля", "Мая", "Июня",
+                    "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"
+                ];
+                const day = this.getDate();
+                const month = months[this.getMonth()];
+                return `${day} ${month}`;
+            }
+
+            isFuture() {
+                const currentDate = new Date();
+                return this.getTime() >= currentDate.getTime();
+            }
+
+            isLeapYear() {
+                const year = this.getFullYear();
+                return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+            }
+
+            getNextDate() {
+                const nextDate = new Date(this.getTime());
+                nextDate.setDate(nextDate.getDate() + 1);
+                return nextDate;
+            }
+        }
+
+        const myExtendedDate = new ExtendedDate();
+
+        console.log("Дата текстом:", myExtendedDate.getDateString());
+        console.log("Это будущая дата?", myExtendedDate.isFuture());
+        console.log("Это високосный год?", myExtendedDate.isLeapYear());
+        console.log("Следующая дата:", myExtendedDate.getNextDate());
+
+    </script>
+</body>
+</html>
